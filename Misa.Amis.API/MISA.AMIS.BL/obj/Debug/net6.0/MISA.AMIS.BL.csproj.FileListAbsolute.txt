@@ -1,0 +1,17 @@
+D:\Learning\Misa\MISA.AMIS.API\MISA.AMIS.BL\bin\Debug\net6.0\MISA.AMIS.BL.deps.json
+D:\Learning\Misa\MISA.AMIS.API\MISA.AMIS.BL\bin\Debug\net6.0\MISA.AMIS.BL.dll
+D:\Learning\Misa\MISA.AMIS.API\MISA.AMIS.BL\bin\Debug\net6.0\MISA.AMIS.BL.pdb
+D:\Learning\Misa\MISA.AMIS.API\MISA.AMIS.BL\obj\Debug\net6.0\MISA.AMIS.BL.csproj.AssemblyReference.cache
+D:\Learning\Misa\MISA.AMIS.API\MISA.AMIS.BL\obj\Debug\net6.0\MISA.AMIS.BL.GeneratedMSBuildEditorConfig.editorconfig
+D:\Learning\Misa\MISA.AMIS.API\MISA.AMIS.BL\obj\Debug\net6.0\MISA.AMIS.BL.AssemblyInfoInputs.cache
+D:\Learning\Misa\MISA.AMIS.API\MISA.AMIS.BL\obj\Debug\net6.0\MISA.AMIS.BL.AssemblyInfo.cs
+D:\Learning\Misa\MISA.AMIS.API\MISA.AMIS.BL\obj\Debug\net6.0\MISA.AMIS.BL.csproj.CoreCompileInputs.cache
+D:\Learning\Misa\MISA.AMIS.API\MISA.AMIS.BL\obj\Debug\net6.0\MISA.AMIS.BL.dll
+D:\Learning\Misa\MISA.AMIS.API\MISA.AMIS.BL\obj\Debug\net6.0\refint\MISA.AMIS.BL.dll
+D:\Learning\Misa\MISA.AMIS.API\MISA.AMIS.BL\obj\Debug\net6.0\MISA.AMIS.BL.pdb
+D:\Learning\Misa\MISA.AMIS.API\MISA.AMIS.BL\obj\Debug\net6.0\ref\MISA.AMIS.BL.dll
+D:\Learning\Misa\MISA.AMIS.API\MISA.AMIS.BL\bin\Debug\net6.0\MISA.AMIS.Common.dll
+D:\Learning\Misa\MISA.AMIS.API\MISA.AMIS.BL\bin\Debug\net6.0\MISA.AMIS.DL.dll
+D:\Learning\Misa\MISA.AMIS.API\MISA.AMIS.BL\bin\Debug\net6.0\MISA.AMIS.Common.pdb
+D:\Learning\Misa\MISA.AMIS.API\MISA.AMIS.BL\bin\Debug\net6.0\MISA.AMIS.DL.pdb
+D:\Learning\Misa\MISA.AMIS.API\MISA.AMIS.BL\obj\Debug\net6.0\MISA.AMIS.BL.csproj.CopyComplete

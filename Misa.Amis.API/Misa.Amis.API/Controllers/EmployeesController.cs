@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Misa.Amis.API.Entities;
+using MISA.AMIS.Common.Entities;
 using MySqlConnector;
 using Dapper;
+using MISA.AMIS.DL;
+using MISA.AMIS.BL.EmployeeBL;
 
 namespace Misa.Amis.API.Controllers
 {
@@ -10,22 +12,31 @@ namespace Misa.Amis.API.Controllers
     [ApiController]
     public class EmployeesController : ControllerBase
     {
+        #region Field
+        private IEmployeeBL _employeeBL;
+        private readonly string connectionString = "Server=localhost;Database=misa.web09.ctm.mdlong;Uid=root;Pwd=123456;";
+        #endregion
+
+        #region Constructor
+        public EmployeesController(IEmployeeBL employeeBL)
+        {
+            _employeeBL = employeeBL;
+        }
+        #endregion
+
+
+        /// <summary>
+        /// Lấy tất cả bản ghi của nhân viên
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult GetAllEmployee()
         {
             try
             {
-                string connectionString = "Server=localhost;Database=misa.web09.ctm.mdlong;Uid=root;Pwd=123456;";
-                var mySqlConnection = new MySqlConnection(connectionString);
-                string sqlCommand = "SELECT * FROM employee";
-                var employees = mySqlConnection.Query(sqlCommand);
+                var employees = _employeeBL.GetAllEmployee();
+                return StatusCode(StatusCodes.Status200OK, employees);
 
-                //xử lý kết quả trả ve
-                if (employees != null)
-                {
-                    return StatusCode(StatusCodes.Status200OK, employees);
-                }
-                return StatusCode(StatusCodes.Status500InternalServerError, new List<Employee>());
 
             }
             catch (Exception e)
@@ -40,9 +51,6 @@ namespace Misa.Amis.API.Controllers
                     TraceId = HttpContext.TraceIdentifier
                 });
             }
-
-
-
         }
 
         /// <summary>

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Learning\\Misa\\api\\MISA.AMIS.API\\MISA.AMIS.Common\\MISA.AMIS.Common.csproj": {}
+    "D:\\Learning\\Misa\\api\\Misa.Amis.API\\MISA.AMIS.Common\\MISA.AMIS.Common.csproj": {}
   },
   "projects": {
-    "D:\\Learning\\Misa\\api\\MISA.AMIS.API\\MISA.AMIS.Common\\MISA.AMIS.Common.csproj": {
+    "D:\\Learning\\Misa\\api\\Misa.Amis.API\\MISA.AMIS.Common\\MISA.AMIS.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Learning\\Misa\\api\\MISA.AMIS.API\\MISA.AMIS.Common\\MISA.AMIS.Common.csproj",
+        "projectUniqueName": "D:\\Learning\\Misa\\api\\Misa.Amis.API\\MISA.AMIS.Common\\MISA.AMIS.Common.csproj",
         "projectName": "MISA.AMIS.Common",
-        "projectPath": "D:\\Learning\\Misa\\api\\MISA.AMIS.API\\MISA.AMIS.Common\\MISA.AMIS.Common.csproj",
+        "projectPath": "D:\\Learning\\Misa\\api\\Misa.Amis.API\\MISA.AMIS.Common\\MISA.AMIS.Common.csproj",
         "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
-        "outputPath": "D:\\Learning\\Misa\\api\\MISA.AMIS.API\\MISA.AMIS.Common\\obj\\",
+        "outputPath": "D:\\Learning\\Misa\\api\\Misa.Amis.API\\MISA.AMIS.Common\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",

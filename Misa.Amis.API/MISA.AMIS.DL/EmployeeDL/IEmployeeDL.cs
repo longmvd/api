@@ -1,4 +1,5 @@
-﻿using MISA.AMIS.Common.Entities;
+﻿using MISA.AMIS.Common.DTO;
+using MISA.AMIS.Common.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,40 +8,13 @@ using System.Threading.Tasks;
 
 namespace MISA.AMIS.DL
 {
-    public interface IEmployeeDL
+    public interface IEmployeeDL : IBaseDL<Employee>
     {
         /// <summary>
-        /// Lấy tất cả nhân viên
+        /// Phân trang nhân viên
         /// </summary>
-        /// <returns></returns>
-        public IEnumerable<dynamic> GetAllEmployee();
-
-        /// <summary>
-        /// Lấy 1 nhân viên theo id
-        /// </summary>
-        /// <param name="employeeId">id nhân viên muốn lấy</param>
-        /// <returns></returns>
-        public Employee GetEmployeeById(Guid employeeId);
-
-        /// <summary>
-        /// Thêm 1 nhân viên mới
-        /// </summary>
-        /// <param name="employee">Nhân viên cần thêm</param>
-        /// <returns>id nhân viên mới</returns>
-        public Guid InsertEmployee(Employee employee);
-
-        /// <summary>
-        /// Sửa 1 nhân viên
-        /// </summary>
-        /// <param name="employee">Nhân viên cần sửa</param>
-        /// <returns></returns>
-        public int UpdateEmployee(Employee employee);
-
-        /// <summary>
-        /// Xóa 1 nhân viên
-        /// </summary>
-        /// <param name="employeeId">Id Nhân viên cần xóa</param>
-        /// <returns></returns>
-        public int DeleteEmployee(Guid employeeId);
+        /// <param name="request">Yêu cầu phân trang</param>
+        /// <returns>Trang danh sách nhân viên</returns>
+        public PagingResult<Employee> GetByFilter(PagingRequest request);
     }
 }

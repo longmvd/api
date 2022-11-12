@@ -559,11 +559,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Learning\\Misa\\api\\MISA.AMIS.API\\MISA.AMIS.API\\MISA.AMIS.API.csproj",
+      "projectUniqueName": "D:\\Learning\\Misa\\api\\Misa.Amis.API\\MISA.AMIS.API\\MISA.AMIS.API.csproj",
       "projectName": "MISA.AMIS.API",
-      "projectPath": "D:\\Learning\\Misa\\api\\MISA.AMIS.API\\MISA.AMIS.API\\MISA.AMIS.API.csproj",
+      "projectPath": "D:\\Learning\\Misa\\api\\Misa.Amis.API\\MISA.AMIS.API\\MISA.AMIS.API.csproj",
       "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
-      "outputPath": "D:\\Learning\\Misa\\api\\MISA.AMIS.API\\MISA.AMIS.API\\obj\\",
+      "outputPath": "D:\\Learning\\Misa\\api\\Misa.Amis.API\\MISA.AMIS.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -580,8 +580,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Learning\\Misa\\api\\MISA.AMIS.API\\MISA.AMIS.BL\\MISA.AMIS.BL.csproj": {
-              "projectPath": "D:\\Learning\\Misa\\api\\MISA.AMIS.API\\MISA.AMIS.BL\\MISA.AMIS.BL.csproj"
+            "D:\\Learning\\Misa\\api\\Misa.Amis.API\\MISA.AMIS.BL\\MISA.AMIS.BL.csproj": {
+              "projectPath": "D:\\Learning\\Misa\\api\\Misa.Amis.API\\MISA.AMIS.BL\\MISA.AMIS.BL.csproj"
             }
           }
         }

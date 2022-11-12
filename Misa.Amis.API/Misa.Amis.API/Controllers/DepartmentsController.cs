@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MISA.AMIS.BL;
 using MISA.AMIS.Common.Entities;
 using MySqlConnector;
 using System;
@@ -14,7 +15,17 @@ namespace Misa.Amis.API.Controllers
     [ApiController]
     public class DepartmentsController : ControllerBase
     {
-        private readonly string connectionString = "Server=localhost;Database=misa.web09.ctm.mdlong;Uid=root;Pwd=123456;";
+        #region Field
+        private IDepartmentBL _departmentBL;
+        #endregion
+
+        #region Constructor
+        public DepartmentsController(IDepartmentBL departmentBL)
+        {
+            _departmentBL = departmentBL;
+        }
+        #endregion
+
 
         /// <summary>
         /// Lấy thông tin tất cả phòng ban
@@ -25,9 +36,7 @@ namespace Misa.Amis.API.Controllers
         {
             try
             {
-                var mySqlConnection = new MySqlConnection(connectionString);
-                string storeProcedure = "Proc_department_SelectAll";
-                var departments = mySqlConnection.Query(storeProcedure, commandType: System.Data.CommandType.StoredProcedure);
+                var departments = _departmentBL.GetAll();
 
                 //xử lý kết quả trả về
                 if (departments != null)
@@ -61,11 +70,7 @@ namespace Misa.Amis.API.Controllers
         {
             try
             {
-                var mySqlConnection = new MySqlConnection(connectionString);
-                string storedProcedure = "Proc_department_SelectByID";
-                var parameters = new DynamicParameters();
-                parameters.Add("@DepartmentID", departmentId);
-                var department = mySqlConnection.QueryFirstOrDefault<Department>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                var department = _departmentBL.GetByID(departmentId);
 
                 if (department != null)
                 {
@@ -106,57 +111,18 @@ namespace Misa.Amis.API.Controllers
         {
             try
             {
-
-                var mySqlConnection = new MySqlConnection(connectionString);
-                mySqlConnection.Open();
-                var transaction = mySqlConnection.BeginTransaction();
-
-                try
-                {
-                    Guid id = Guid.NewGuid();
-                    string storedProcedureName = "Proc_department_Insert";
-                    var parameters = new DynamicParameters();
-                    parameters.Add("@DepartmentID", id);
-                    parameters.Add("@DepartmentCode", department.DepartmentCode);
-                    parameters.Add("@DepartmentName", department.DepartmentName);
-                    parameters.Add("@CreatedDate", department.CreatedDate);
-                    parameters.Add("@CreatedBy", department.CreatedBy);
-                    parameters.Add("@ModifiedDate", department.ModifiedDate);
-                    parameters.Add("@ModifiedBy", department.ModifiedBy);
-                    parameters.Add("@Description", department.Description);
-
-                    int result = mySqlConnection.Execute(storedProcedureName, parameters, transaction, commandType: System.Data.CommandType.StoredProcedure);
-                    transaction.Commit();
-                    if (result > 0)
-                        return StatusCode(StatusCodes.Status201Created, id);
-                    else
-                        return StatusCode(StatusCodes.Status501NotImplemented, new
-                        {
-                            ErrorCode = 1,
-                            DevMsg = "Insert data from database failed!",
-                            UserMsg = "Thêm phòng ban thất bại",
-                            MoreInfo = "",
-                            TraceId = HttpContext.TraceIdentifier
-                        });
-                }
-                catch (Exception e)
-                {
-                    transaction.Rollback();
-                    Console.WriteLine(e);
-                    return StatusCode(StatusCodes.Status500InternalServerError, new
+                Guid result = _departmentBL.InsertOne(department);
+                if (!result.Equals(Guid.Empty))
+                    return StatusCode(StatusCodes.Status201Created, result);
+                else
+                    return StatusCode(StatusCodes.Status501NotImplemented, new
                     {
                         ErrorCode = 1,
                         DevMsg = "Insert data from database failed!",
                         UserMsg = "Thêm phòng ban thất bại",
-                        MoreInfo = e.Message,
+                        MoreInfo = "",
                         TraceId = HttpContext.TraceIdentifier
                     });
-
-                }
-                finally
-                {
-                    mySqlConnection.Close();
-                }
             }
             catch (Exception e)
             {
@@ -164,8 +130,12 @@ namespace Misa.Amis.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new
                 {
                     ErrorCode = 1,
-                    DevMsg = ""
+                    DevMsg = "Insert data from database failed!",
+                    UserMsg = "Thêm phòng ban thất bại",
+                    MoreInfo = e.Message,
+                    TraceId = HttpContext.TraceIdentifier
                 });
+
             }
 
         }
@@ -191,7 +161,7 @@ namespace Misa.Amis.API.Controllers
 
                 });
             }
-            using (var mySqlConnection = new MySqlConnection(connectionString))
+            using (var mySqlConnection = new MySqlConnection(""))
             {
                 string sqlCommand = "Proc_department_SelectById";
                 var parameter = new DynamicParameters();
@@ -255,43 +225,36 @@ namespace Misa.Amis.API.Controllers
         [HttpDelete("{departmentId}")]
         public IActionResult DeleteOneById([FromRoute] Guid departmentId)
         {
-            using (var mySqlConnection = new MySqlConnection(connectionString))
+            try
             {
-                mySqlConnection.Open();
-                var transaction = mySqlConnection.BeginTransaction();
-                try
-                {
-                    string storedProcedure = "Proc_department_DeleteByID";
-                    var parameters = new DynamicParameters();
-                    parameters.Add("@DepartmentID", departmentId);
-                    int numberOfRow = mySqlConnection.Execute(storedProcedure, parameters, transaction, commandType: CommandType.StoredProcedure);
-                    transaction.Commit();
-                    if (numberOfRow > 0)
-                        return StatusCode(StatusCodes.Status200OK, numberOfRow);
+                var result = _departmentBL.DeleteOneByID(departmentId);
 
-                    return StatusCode(StatusCodes.Status400BadRequest, new
-                    {
-                        ErrorCode = 1,
-                        DevMsg = "There's no department",
-                        UserMsg = "Không tồn tại phòng ban cần xóa",
-                        MoreInfo = "",
-                        TraceId = HttpContext.TraceIdentifier
-                    });
-                }
-                catch (Exception e)
+                if (result > 0)
                 {
-                    Console.WriteLine(e);
-                    transaction.Rollback();
-                    return StatusCode(StatusCodes.Status500InternalServerError, new
-                    {
-                        ErrorCode = 1,
-                        DevMsg = "Catch error",
-                        UserMsg = "Có lỗi xảy ra vui lòng liên hệ Misa",
-                        MoreInfo = e.Message,
-                        TraceId = HttpContext.TraceIdentifier
-                    });
+                    return StatusCode(StatusCodes.Status200OK, result);
 
                 }
+                return StatusCode(StatusCodes.Status404NotFound, new
+                {
+                    ErrorCode = 1,
+                    DevMsg = "",
+                    UserMsg = "Không tìm thấy phòng ban",
+                    MoreInfo = "",
+                    TraceId = HttpContext.TraceIdentifier
+                });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    ErrorCode = 1,
+                    DevMsg = "Cactched an error",
+                    UserMsg = "Có lỗi xảy ra vui lòng liên hệ Misa!",
+                    MoreInfo = e.Message,
+                    TraceId = HttpContext.TraceIdentifier
+                });
+
             }
         }
     }

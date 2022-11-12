@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qGqb4yGShkf3WCowSLkimSV8Oor+bOIECDwkT+pWUmHM0IEl8xJTtehCl34FnBLDyhtXUxhL4gZMKg+uFDKn7Q==",
+  "dgSpecHash": "oZTy187tk/Kdqwoi3Gqb+upyZ9iNyWFt9wXaMtSQdlOo92X3/kt1Oy6z6QeGJB4OHVC51fplsRl+eXP15Imt+Q==",
   "success": true,
-  "projectFilePath": "D:\\Learning\\Misa\\api\\MISA.AMIS.API\\MISA.AMIS.DL\\MISA.AMIS.DL.csproj",
+  "projectFilePath": "D:\\Learning\\Misa\\api\\Misa.Amis.API\\MISA.AMIS.DL\\MISA.AMIS.DL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Acer\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\Acer\\.nuget\\packages\\mysqlconnector\\2.2.0\\mysqlconnector.2.2.0.nupkg.sha512"

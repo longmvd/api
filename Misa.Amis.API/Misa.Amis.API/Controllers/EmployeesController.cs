@@ -4,7 +4,7 @@ using MISA.AMIS.Common.Entities;
 using MySqlConnector;
 using Dapper;
 using MISA.AMIS.DL;
-using MISA.AMIS.BL.EmployeeBL;
+using MISA.AMIS.BL;
 
 namespace Misa.Amis.API.Controllers
 {
@@ -14,7 +14,6 @@ namespace Misa.Amis.API.Controllers
     {
         #region Field
         private IEmployeeBL _employeeBL;
-        private readonly string connectionString = "Server=localhost;Database=misa.web09.ctm.mdlong;Uid=root;Pwd=123456;";
         #endregion
 
         #region Constructor
@@ -34,7 +33,7 @@ namespace Misa.Amis.API.Controllers
         {
             try
             {
-                var employees = _employeeBL.GetAllEmployee();
+                var employees = _employeeBL.GetAll();
                 return StatusCode(StatusCodes.Status200OK, employees);
 
 

@@ -30,11 +30,17 @@ namespace MISA.AMIS.Common.Entities
 
         public string TelephoneNumber { get; set; }
 
+        public string IdentityNumber { get; set; }
+
+        public DateTime IdentityDate { get; set; }
+
+        public string IdentityPlace { get; set; }
+
         public string TaxCode { get; set; }
 
         public Double Salary { get; set; }
 
-        public string BankAccount { get; set; }
+        public string BankAccountNumber { get; set; }
 
         public string BankName { get; set; }
 
@@ -46,15 +52,9 @@ namespace MISA.AMIS.Common.Entities
 
         public int WorkSatus { get; set; }
 
-        public DateTime IdentityDate { get; set; }
+        public Guid DepartmentID { get; set; }
 
-        public string IdentityPlace { get; set; }
-
-        public string IdentityNumber { get; set; }
-
-        public Department Department { get; set; }
-
-        public JobPosition JobPosition { get; set; }
+        public Guid JobPositionID { get; set; }
         #endregion
     }
 }

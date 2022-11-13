@@ -22,7 +22,7 @@ namespace MISA.AMIS.Common {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resource {
+    public class Resource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace MISA.AMIS.Common {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MISA.AMIS.Common.Resource", typeof(Resource).Assembly);
@@ -51,7 +51,7 @@ namespace MISA.AMIS.Common {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,9 +61,18 @@ namespace MISA.AMIS.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mã không để trống.
+        /// </summary>
+        public static string Code_Empty {
+            get {
+                return ResourceManager.GetString("Code_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Catched an exception..
         /// </summary>
-        internal static string DevMsg_Exception {
+        public static string DevMsg_Exception {
             get {
                 return ResourceManager.GetString("DevMsg_Exception", resourceCulture);
             }
@@ -72,7 +81,7 @@ namespace MISA.AMIS.Common {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string MoreInfor {
+        public static string MoreInfor {
             get {
                 return ResourceManager.GetString("MoreInfor", resourceCulture);
             }
@@ -81,9 +90,18 @@ namespace MISA.AMIS.Common {
         /// <summary>
         ///   Looks up a localized string similar to Có lỗi xảy ra vui lòng liên hệ Misa.
         /// </summary>
-        internal static string UserMsg_Exception {
+        public static string UserMsg_Exception {
             get {
                 return ResourceManager.GetString("UserMsg_Exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Không tìm thấy kết quả.
+        /// </summary>
+        public static string UserMsg_Not_Found {
+            get {
+                return ResourceManager.GetString("UserMsg_Not_Found", resourceCulture);
             }
         }
     }

@@ -10,7 +10,7 @@ namespace MISA.AMIS.Common.Enums
     /// <summary>
     /// Enum sử dụng mô tả các lỗi xảy ra khi gọi API
     /// </summary>
-    internal enum ErrorCode
+    public enum ErrorCode
     {
 
         /// <summary>
@@ -26,6 +26,11 @@ namespace MISA.AMIS.Common.Enums
         /// <summary>
         /// Lỗi đầu vào không hợp lệ
         /// </summary>
-        InvalidData = 3
+        InvalidData = 3,
+
+        /// <summary>
+        ///Lỗi không tìm thấy tài nguyên
+        /// </summary>
+        NotFound = 4
     }
 }

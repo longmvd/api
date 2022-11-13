@@ -49,7 +49,7 @@ namespace MISA.AMIS.Common.DTO
 
         public string BankProvinceName { get; set; }
 
-        public DateTime JoinDate { get; set; }
+        public DateTime? JoinDate { get; set; }
 
         public int WorkSatus { get; set; }
 

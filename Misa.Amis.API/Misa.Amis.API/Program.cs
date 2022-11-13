@@ -13,8 +13,9 @@ builder.Services.AddScoped(typeof(IBaseBL<>), typeof(BaseBL<>));
 builder.Services.AddScoped(typeof(IBaseDL<>), typeof(BaseDL<>));
 builder.Services.AddScoped<IDepartmentBL, DepartmentBL>();
 builder.Services.AddScoped<IDepartmentDL, DepartmentDL>();
-
-builder.Services.AddScoped<IDepartmentBL, DepartmentBL>();
+builder.Services.AddScoped<IJobPositionBL, JobPositionBL>();
+builder.Services.AddScoped<IJobPositionDL, JobPositionDL>();
+builder.Services.AddScoped<IEmployeeBL, EmployeeBL>();
 builder.Services.AddScoped<IEmployeeDL, EmployeeDL>();
 
 //Lấy dữ liệu connection string từ appsettings.Development.json 

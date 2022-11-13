@@ -1,7 +1,9 @@
 ﻿using MISA.AMIS.DL;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -41,7 +43,13 @@ namespace MISA.AMIS.BL
 
         public int UpdateOneByID(Guid id, T entity)
         {
+            T oldEntity = this._baseDL.GetByID(id);
+
+            TypeDescriptor.GetProperties(entity)["CreatedDate"].SetValue(entity, TypeDescriptor.GetProperties(oldEntity)["CreatedDate"].GetValue(oldEntity));
+            TypeDescriptor.GetProperties(entity)["CreatedBy"].SetValue(entity, TypeDescriptor.GetProperties(oldEntity)["CreatedBy"].GetValue(oldEntity));
+            TypeDescriptor.GetProperties(entity)["ModifiedDate"].SetValue(entity, DateTime.Now);
             return this._baseDL.UpdateOneByID(id, entity);
         }
+        
     }
 }

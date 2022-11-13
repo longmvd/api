@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Code_Empty" xml:space="preserve">
+    <value>Mã không để trống</value>
+  </data>
   <data name="DevMsg_Exception" xml:space="preserve">
     <value>Catched an exception.</value>
     <comment>Message trả về cho dev khi gọi API gặp exception</comment>
@@ -128,5 +131,9 @@
   <data name="UserMsg_Exception" xml:space="preserve">
     <value>Có lỗi xảy ra vui lòng liên hệ Misa</value>
     <comment>Message trả về cho user khi gọi API gặp exception</comment>
+  </data>
+  <data name="UserMsg_Not_Found" xml:space="preserve">
+    <value>Không tìm thấy kết quả</value>
+    <comment>Message trả về cho user khi gọi API không tìm thấy tài nguyên</comment>
   </data>
 </root>

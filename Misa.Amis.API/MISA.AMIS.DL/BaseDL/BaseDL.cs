@@ -16,6 +16,12 @@ namespace MISA.AMIS.DL
 {
     public class BaseDL<T> : IBaseDL<T>
     {
+        /// <summary>
+        /// Xóa 1 bản ghi theo id
+        /// </summary>
+        /// <param name="id">ID bản ghi cần xóa</param>
+        /// <returns>Số bản ghi bị xóa</returns>
+        /// Author: MDLONG(13/11/2022)
         public int DeleteOneByID(Guid id)
         {
             string storedProcedure = String.Format("Proc_{0}_DeleteByID", typeof(T).Name);
@@ -32,14 +38,24 @@ namespace MISA.AMIS.DL
                     transaction.Commit();
                     return numberOfRow;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Console.WriteLine(e);
                     transaction.Rollback();
                     return 0;
+                }
+                finally
+                {
+                    mySqlConnection.Close();
                 }
             }
         }
 
+        /// <summary>
+        /// Lấy tất cả bản ghi
+        /// </summary>
+        /// <returns>Danh sách bản ghi</returns>
+        /// Author: MDLONG(13/11/2022)
         public IEnumerable<T> GetAll()
         {
             string storedProcedure = String.Format(Procedure.GET_ALL, typeof(T).Name);
@@ -50,6 +66,12 @@ namespace MISA.AMIS.DL
             }
         }
 
+        /// <summary>
+        /// Lấy bản ghi theo id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>1 Bản ghi</returns>
+        /// Author: MDLONG(13/11/2022)
         public T GetByID(Guid id)
         {
             string storedProcedure = String.Format(Procedure.GET_BY_ID, typeof(T).Name);
@@ -63,6 +85,12 @@ namespace MISA.AMIS.DL
             }
         }
 
+        /// <summary>
+        /// Thêm 1 bản ghi
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns>Id bản ghi mới</returns>
+        /// Author: MDLONG(13/11/2022)
         public Guid InsertOne(T entity)
         {
 
@@ -73,12 +101,16 @@ namespace MISA.AMIS.DL
             {
                 string property = descriptor.Name;
                 object value = descriptor.GetValue(entity);
-                if(value != null)
-                parameters.Add($"@{property}", value);
+                string idField = $"{typeof(T).Name}ID";
+                if (property.Equals(idField))
+                    parameters.Add($"@{property}", id);
+                else
+                    parameters.Add($"@{property}", value);
             }
             
             using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
+                mySqlConnection.Open();
                 var transaction = mySqlConnection.BeginTransaction();
                 try
                 {
@@ -91,23 +123,40 @@ namespace MISA.AMIS.DL
                     transaction.Rollback();
                     return Guid.Empty;
                 }
+                finally
+                {
+                    mySqlConnection.Close();
+                }
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">Id bản ghi</param>
+        /// <param name="entity">Thông tin mới của bản ghi</param>
+        /// <returns></returns>
+        /// Author: MDLONG(13/11/2022)
         public int UpdateOneByID(Guid id, T entity)
         {
             string storedProcedureName = String.Format(Procedure.UPDATE_BY_ID, typeof(T).Name);
+
             var parameters = new DynamicParameters();
             foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(entity))
             {
                 string property = descriptor.Name;
                 object value = descriptor.GetValue(entity);
-                if (value != null)
+                
+                string idField = $"{typeof(T).Name}ID";
+                if (property.Equals(idField))
+                    parameters.Add($"@{property}", id);
+                else
                     parameters.Add($"@{property}", value);
             }
 
             using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
+                mySqlConnection.Open();
                 var transaction = mySqlConnection.BeginTransaction();
                 try
                 {
@@ -117,6 +166,7 @@ namespace MISA.AMIS.DL
                 }
                 catch (Exception e)
                 {
+                    Console.WriteLine(e);
                     transaction.Rollback();
                     return 0;
                 }
@@ -127,5 +177,6 @@ namespace MISA.AMIS.DL
 
             }
         }
+
     }
 }

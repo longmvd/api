@@ -15,7 +15,7 @@ namespace MISA.AMIS.Common.Entities
         /// Id nhân viên
         /// </summary>
         [Key]
-        public Guid EmployeeId { get; set; }
+        public Guid EmployeeID { get; set; }
 
         /// <summary>
         /// Mã nhân viên
@@ -42,87 +42,93 @@ namespace MISA.AMIS.Common.Entities
         /// <summary>
         /// Địa chỉ
         /// </summary>
-        public string Address { get; set; }
+        public string? Address { get; set; }
 
         /// <summary>
         /// Email nhân viên
         /// </summary>
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         /// <summary>
         /// Số điện thoại nhân viên
         /// </summary>
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
 
         /// <summary>
         /// Số điện thoại cố định
         /// </summary>
-        public string TelephoneNumber { get; set; }
+        public string? TelephoneNumber { get; set; }
 
         /// <summary>
         /// Số chứng minh nhân dân
         /// </summary>
-        public string IdentityNumber { get; set; }
+        public string? IdentityNumber { get; set; }
 
         /// <summary>
         /// Ngày cấp chứng minh nhân dân
         /// </summary>
-        public DateTime IdentityDate { get; set; }
+        public DateTime? IdentityDate { get; set; }
 
         /// <summary>
         /// Địa điểm cấp chứng minh thư
         /// </summary>
-        public string IdentityPlace { get; set; }
-
-        /// <summary>
-        /// Mã số thuế
-        /// </summary>
-        public string TaxCode { get; set; }
+        public string? IdentityPlace { get; set; }
 
         /// <summary>
         /// Lương
         /// </summary>
-        public Double Salary { get; set; }
+        public Double? Salary { get; set; }
 
         /// <summary>
         /// Số tài khoản ngân hàng
         /// </summary>
-        public string BankAccountNumber { get; set; }
+        public string? BankAccountNumber { get; set; }
 
         /// <summary>
         /// Tên ngân hàng
         /// </summary>
-        public string BankName { get; set; }
+        public string? BankName { get; set; }
 
         /// <summary>
         /// Tên chi nhánh
         /// </summary>
-        public string BankBranchName { get; set; }
+        public string? BankBranchName { get; set; }
 
         /// <summary>
         /// Tên tỉnh/thành phố ngân hàng
         /// </summary>
-        public string BankProvinceName { get; set; }
+        public string? BankProvinceName { get; set; }
 
         /// <summary>
         /// Ngày vào công ty
         /// </summary>
-        public DateTime JoinDate { get; set; }
+        public DateTime? JoinDate { get; set; }
 
         /// <summary>
         /// Tình trạng công việc
         /// </summary>
-        public int WorkStatus { get; set; }
+        public int? WorkStatus { get; set; }
 
         /// <summary>
         /// Id phòng ban
         /// </summary>
+        [Required(ErrorMessage="Phòng ban không để trống")]
         public Guid DepartmentID { get; set; }
 
         /// <summary>
-        /// id vị trí
+        /// Vị trí
         /// </summary>
-        public Guid JobPositionID { get; set; }
+        public string? PositionName { get; set; }
+
+        /// <summary>
+        /// Là nhà cung cấp
+        /// </summary>
+        public bool? IsSupplier { get; set; } 
+
+        /// <summary>
+        /// Là khách hàng
+        /// </summary>
+        public bool? IsCustomer { get; set; }
         #endregion
     }
 }

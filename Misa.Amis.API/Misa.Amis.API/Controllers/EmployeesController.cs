@@ -10,6 +10,7 @@ using MySqlConnector;
 using System;
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics.CodeAnalysis;
 using System.Transactions;
 
 namespace Misa.Amis.API.Controllers
@@ -28,5 +29,11 @@ namespace Misa.Amis.API.Controllers
             _employeeBL = employeeBL;
         }
         #endregion
+
+        [HttpGet("filter")]
+        public PagingResult<Employee> GetByFilter([FromQuery]PagingRequest request)
+        {
+            return _employeeBL.GetByFilter(request);
+        }
     }
 }

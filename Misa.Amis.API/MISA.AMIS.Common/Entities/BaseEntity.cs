@@ -8,12 +8,24 @@ namespace MISA.AMIS.Common.Entities
 {
     public class BaseEntity
     {
-        public DateTime CreatedDate { get; set; }
+        /// <summary>
+        /// Ngày tạo
+        /// </summary>
+        public DateTime? CreatedDate { get; set; }
 
-        public string CreatedBy { get; set; }
+        /// <summary>
+        /// Tạo bởi
+        /// </summary>
+        public string? CreatedBy { get; set; }
 
-        public DateTime ModifiedDate { get; set; }
+        /// <summary>
+        /// Ngày sửa
+        /// </summary>
+        public DateTime? ModifiedDate { get; set; }
 
-        public string ModifiedBy { get; set; }
+        /// <summary>
+        /// Sửa bới
+        /// </summary>
+        public string? ModifiedBy { get; set; }
     }
 }

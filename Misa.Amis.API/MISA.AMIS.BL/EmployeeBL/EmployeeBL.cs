@@ -1,4 +1,5 @@
-﻿using MISA.AMIS.Common.Entities;
+﻿using MISA.AMIS.Common.DTO;
+using MISA.AMIS.Common.Entities;
 using MISA.AMIS.DL;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,11 @@ namespace MISA.AMIS.BL
         public EmployeeBL(IEmployeeDL employeeBL): base(employeeBL)
         {
             _employeeDL = employeeBL;
+        }
+
+        public PagingResult<Employee> GetByFilter(PagingRequest request)
+        {
+            return _employeeDL.GetByFilter(request);
         }
         #endregion
     }

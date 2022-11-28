@@ -42,5 +42,22 @@ namespace MISA.AMIS.DL
         /// <returns>Số bản ghi bị xóa</returns>
         /// Created by: MDLONG(11/11/2022)
         public int DeleteOneByID(Guid id);
+
+        /// <summary>
+        /// Xóa nhiều bản ghi theo id
+        /// </summary>
+        /// <returns>Số bản ghi bị xóa</returns>
+        /// Created by: MDLONG(11/11/2022)
+        public int DeleteByIDs(List<string> ids);
+
+        /// <summary>
+        /// Kiểm tra mã trùng
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns>Kết quả kiểm tra</returns>
+        /// Created by: MDLONG(18/11/2022)
+        public bool CheckDupplicatedCode(T entity);
+
+
     }
 }

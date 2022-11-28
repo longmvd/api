@@ -16,40 +16,6 @@ namespace MISA.AMIS.DL
 {
     public class BaseDL<T> : IBaseDL<T>
     {
-        /// <summary>
-        /// Xóa 1 bản ghi theo id
-        /// </summary>
-        /// <param name="id">ID bản ghi cần xóa</param>
-        /// <returns>Số bản ghi bị xóa</returns>
-        /// Author: MDLONG(13/11/2022)
-        public int DeleteOneByID(Guid id)
-        {
-            string storedProcedure = String.Format("Proc_{0}_DeleteByID", typeof(T).Name);
-            var parameters = new DynamicParameters();
-            parameters.Add(String.Format("@{0}ID", typeof(T).Name), id);
-
-            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
-            {
-                mySqlConnection.Open();
-                var transaction = mySqlConnection.BeginTransaction();
-                try
-                {
-                    int numberOfRow = mySqlConnection.Execute(storedProcedure, parameters, transaction, commandType: CommandType.StoredProcedure);
-                    transaction.Commit();
-                    return numberOfRow;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    transaction.Rollback();
-                    return 0;
-                }
-                finally
-                {
-                    mySqlConnection.Close();
-                }
-            }
-        }
 
         /// <summary>
         /// Lấy tất cả bản ghi
@@ -86,11 +52,81 @@ namespace MISA.AMIS.DL
         }
 
         /// <summary>
+        /// Xóa 1 bản ghi theo id
+        /// </summary>
+        /// <param name="id">ID bản ghi cần xóa</param>
+        /// <returns>Số bản ghi bị xóa</returns>
+        /// Author: MDLONG(13/11/2022)
+        public int DeleteOneByID(Guid id)
+        {
+            string storedProcedure = String.Format(Procedure.DELETE_BY_ID, typeof(T).Name);
+            var parameters = new DynamicParameters();
+            parameters.Add(String.Format("@{0}ID", typeof(T).Name), id);
+
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
+            {
+                mySqlConnection.Open();
+                var transaction = mySqlConnection.BeginTransaction();
+                try
+                {
+                    int numberOfRow = mySqlConnection.Execute(storedProcedure, parameters, transaction, commandType: CommandType.StoredProcedure);
+                    transaction.Commit();
+                    return numberOfRow;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    transaction.Rollback();
+                    return 0;
+                }
+                finally
+                {
+                    mySqlConnection.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Xóa nhiều theo id
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns>Số bản ghi bị xóa</returns>
+        /// Created by: MDLONG(23/11/2022)
+        public int DeleteByIDs(string ids)
+        {
+            string storedProcedure = String.Format(Procedure.DELETE_BY_IDS, typeof(T).Name);
+            var parameters = new DynamicParameters();
+            parameters.Add(String.Format("@{0}IDs", typeof(T).Name), ids);
+
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
+            {
+                mySqlConnection.Open();
+                var transaction = mySqlConnection.BeginTransaction();
+                try
+                {
+                    int numberOfRow = mySqlConnection.Execute(storedProcedure, parameters, transaction, commandType: CommandType.StoredProcedure);
+                    transaction.Commit();
+                    return numberOfRow ;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    transaction.Rollback();
+                    return 0;
+                }
+                finally
+                {
+                    mySqlConnection.Close();
+                }
+            }
+        }
+
+        /// <summary>
         /// Thêm 1 bản ghi
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="entity">Đối tượng thêm mới</param>
         /// <returns>Id bản ghi mới</returns>
-        /// Author: MDLONG(13/11/2022)
+        ///  Created by: MDLONG(13/11/2022)
         public Guid InsertOne(T entity)
         {
 
@@ -99,15 +135,18 @@ namespace MISA.AMIS.DL
             var parameters = new DynamicParameters();
             foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(entity))
             {
+                //Lấy tên của prop
                 string property = descriptor.Name;
+                //Lấy giá trị
                 object value = descriptor.GetValue(entity);
+                //Nếu prop id
                 string idField = $"{typeof(T).Name}ID";
                 if (property.Equals(idField))
                     parameters.Add($"@{property}", id);
                 else
                     parameters.Add($"@{property}", value);
             }
-            
+
             using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
                 mySqlConnection.Open();
@@ -120,6 +159,7 @@ namespace MISA.AMIS.DL
                 }
                 catch (Exception e)
                 {
+                    Console.WriteLine(e);
                     transaction.Rollback();
                     return Guid.Empty;
                 }
@@ -131,12 +171,12 @@ namespace MISA.AMIS.DL
         }
 
         /// <summary>
-        /// 
+        /// Cập nhật bản ghi theo id
         /// </summary>
         /// <param name="id">Id bản ghi</param>
         /// <param name="entity">Thông tin mới của bản ghi</param>
-        /// <returns></returns>
-        /// Author: MDLONG(13/11/2022)
+        /// <returns>kết quả cập nhật</returns>
+        /// Created by: MDLONG(13/11/2022)
         public int UpdateOneByID(Guid id, T entity)
         {
             string storedProcedureName = String.Format(Procedure.UPDATE_BY_ID, typeof(T).Name);
@@ -146,7 +186,7 @@ namespace MISA.AMIS.DL
             {
                 string property = descriptor.Name;
                 object value = descriptor.GetValue(entity);
-                
+
                 string idField = $"{typeof(T).Name}ID";
                 if (property.Equals(idField))
                     parameters.Add($"@{property}", id);
@@ -175,6 +215,37 @@ namespace MISA.AMIS.DL
                     mySqlConnection.Close();
                 }
 
+            }
+        }
+
+        /// <summary>
+        /// Kiểm tra mã nhân viên TRÙNG
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>Kết quả kiểm tra</returns>
+        ///Created by: MDLONG(18/11/2022)
+        public bool CheckDupplicatedCode(T entity)
+        {
+            string storedProcedure = String.Format(Procedure.CHECK_DUPPLICATED_CODE, typeof(T).Name);
+            var parameters = new DynamicParameters();
+            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(entity))
+            {
+                //Lấy tên của prop
+                string property = descriptor.Name;
+                //Nếu prop id
+                string idField = $"{typeof(T).Name}Code";
+                if (property.Equals(idField))
+                {
+                    object value = descriptor.GetValue(entity);
+                    parameters.Add($"@{property}", value);
+                    break;
+                }
+            }
+
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
+            {
+                var result = mySqlConnection.QueryFirstOrDefault<Int16>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                return result > 0 ? true : false;
             }
         }
 

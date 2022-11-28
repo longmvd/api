@@ -1,8 +1,10 @@
-﻿using MISA.AMIS.Common.DTO;
+﻿using ClosedXML.Excel;
+using MISA.AMIS.Common.DTO;
 using MISA.AMIS.Common.Entities;
 using MISA.AMIS.DL;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +13,20 @@ namespace MISA.AMIS.BL
 {
     public interface IEmployeeBL : IBaseBL<Employee>
     {
-        public PagingResult<Employee> GetByFilter(PagingRequest request);
+        /// <summary>
+        /// Lấy nhân viên theo điều kiện và phân trang
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>Paging</returns>
+        ///Created by: MDLONG(18/11/2022)
+        public PagingResult<EmployeeDTO> GetByFilter(PagingRequest request);
+
+        /// <summary>
+        /// Xuất khẩu ra excel
+        /// </summary>
+        /// <returns>Bảng excel</returns>
+        ///Created by: MDLONG(18/11/2022)
+        public XLWorkbook ExportToExcel(PagingRequest request);
     }
 
 }

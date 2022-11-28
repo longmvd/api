@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MISA.AMIS.Common.Entities;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,5 +44,21 @@ namespace MISA.AMIS.DL
         /// <returns>Số bản ghi bị xóa</returns>
         /// Created by: MDLONG(11/11/2022)
         public int DeleteOneByID(Guid id);
+
+        /// <summary>
+        /// Xóa nhiều bản ghi theo danh sách id
+        /// </summary>
+        /// <param name="ids">danh sách id</param>
+        /// <returns>trạng thái xóa</returns>
+        ///  Created by: MDLONG(11/11/2022)
+        public int DeleteByIDs(string ids);
+
+        /// <summary>
+        /// Kiểm tra mã trùng
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns>bool</returns>
+        /// Created by: MDLONG(18/11/2022)
+        public bool CheckDupplicatedCode(T entity);
     }
 }

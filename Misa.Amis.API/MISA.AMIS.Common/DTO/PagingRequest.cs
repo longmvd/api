@@ -9,13 +9,19 @@ namespace MISA.AMIS.Common.DTO
 {
     public class PagingRequest
     {
-        public int? PageSize { get; set; }
+        /// <summary>
+        /// Kích thước trang
+        /// </summary>
+        public int PageSize { get; set; }
 
-        public int? PageNumber { get; set; }
+        /// <summary>
+        /// Trang số bao nhiêu
+        /// </summary>
+        public int PageNumber { get; set; }
 
+        /// <summary>
+        /// Điều kiện lọc
+        /// </summary>
         public string? EmployeeFilter { get; set; }
-
-        public Guid? DepartmentID { get; set; }
-
     }
 }

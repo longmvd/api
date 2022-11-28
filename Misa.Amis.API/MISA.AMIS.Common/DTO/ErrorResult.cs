@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace MISA.AMIS.Common.DTO
 {
+    /// <summary>
+    /// Lớp mã lỗi
+    /// </summary>
+    /// Created by: MDLONG(29/10/2022)
     public class ErrorResult
     {
         /// <summary>

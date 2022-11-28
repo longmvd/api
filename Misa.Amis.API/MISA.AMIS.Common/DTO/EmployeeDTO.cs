@@ -9,12 +9,17 @@ using System.Threading.Tasks;
 
 namespace MISA.AMIS.Common.DTO
 {
+    /// <summary>
+    /// Lớp dto trả dữ liệu nhân viên cho client
+    /// </summary>
+    /// Created by: MDLONG(30/10/2022)
     public class EmployeeDTO : Employee
     {
         #region Properties
+        /// <summary>
+        /// Tên phòng ban
+        /// </summary>
         public String DepartmentName { get; set; }
-
-        public String JobPositionName { get; set; }
         #endregion
     }
 }

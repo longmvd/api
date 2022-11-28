@@ -15,6 +15,7 @@ namespace MISA.AMIS.DL
         /// </summary>
         /// <param name="request">Yêu cầu phân trang</param>
         /// <returns>Trang danh sách nhân viên</returns>
-        public PagingResult<Employee> GetByFilter(PagingRequest request);
+        ///  Created by: MDLONG(18/11/2022)
+        public PagingResult<EmployeeDTO> GetByFilter(PagingRequest request);
     }
 }

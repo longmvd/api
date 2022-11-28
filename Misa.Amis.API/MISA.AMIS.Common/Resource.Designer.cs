@@ -70,6 +70,15 @@ namespace MISA.AMIS.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mã {0} đã tồn tại.
+        /// </summary>
+        public static string Dev_Dupplicated_Code {
+            get {
+                return ResourceManager.GetString("Dev_Dupplicated_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Catched an exception..
         /// </summary>
         public static string DevMsg_Exception {
@@ -79,11 +88,29 @@ namespace MISA.AMIS.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Danh sách nhân viên.
+        /// </summary>
+        public static string Employee_Excel_Title {
+            get {
+                return ResourceManager.GetString("Employee_Excel_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string MoreInfor {
             get {
                 return ResourceManager.GetString("MoreInfor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mã &lt;{0}&gt; đã tồn tại trong hệ thống, vui lòng kiểm tra lại.
+        /// </summary>
+        public static string UserMsg_Dupplicated_Code {
+            get {
+                return ResourceManager.GetString("UserMsg_Dupplicated_Code", resourceCulture);
             }
         }
         

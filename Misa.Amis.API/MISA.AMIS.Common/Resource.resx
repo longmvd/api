@@ -124,9 +124,21 @@
     <value>Catched an exception.</value>
     <comment>Message trả về cho dev khi gọi API gặp exception</comment>
   </data>
+  <data name="Dev_Dupplicated_Code" xml:space="preserve">
+    <value>Mã {0} đã tồn tại</value>
+    <comment>Message trả về cho user khi thêm mới trùng mã</comment>
+  </data>
+  <data name="Employee_Excel_Title" xml:space="preserve">
+    <value>Danh sách nhân viên</value>
+    <comment>Tiêu đề danh sách nhân viên excel</comment>
+  </data>
   <data name="MoreInfor" xml:space="preserve">
     <value />
     <comment>Thông tin chi tiết của lỗi khi gặp exception</comment>
+  </data>
+  <data name="UserMsg_Dupplicated_Code" xml:space="preserve">
+    <value>Mã &lt;{0}&gt; đã tồn tại trong hệ thống, vui lòng kiểm tra lại</value>
+    <comment>Message trả về cho user khi thêm mới trùng mã</comment>
   </data>
   <data name="UserMsg_Exception" xml:space="preserve">
     <value>Có lỗi xảy ra vui lòng liên hệ Misa</value>

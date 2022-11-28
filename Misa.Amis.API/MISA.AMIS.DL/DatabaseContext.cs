@@ -9,7 +9,10 @@ namespace MISA.AMIS.DL
     public class DatabaseContext
     {
         #region Field
-            public static string ConnectionString = ""; 
+        /// <summary>
+        /// chuỗi kết nối với db
+        /// </summary>
+        public static string ConnectionString = "";
         #endregion
     }
 }

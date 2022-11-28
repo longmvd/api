@@ -68,3 +68,11 @@ D:\Learning\Misa\api\MISA.AMIS.API\MISA.AMIS.API\obj\Debug\net6.0\refint\MISA.AM
 D:\Learning\Misa\api\MISA.AMIS.API\MISA.AMIS.API\obj\Debug\net6.0\MISA.AMIS.API.pdb
 D:\Learning\Misa\api\MISA.AMIS.API\MISA.AMIS.API\obj\Debug\net6.0\MISA.AMIS.API.genruntimeconfig.cache
 D:\Learning\Misa\api\MISA.AMIS.API\MISA.AMIS.API\obj\Debug\net6.0\ref\MISA.AMIS.API.dll
+D:\Learning\Misa\api\Misa.Amis.API\MISA.AMIS.API\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\Learning\Misa\api\Misa.Amis.API\MISA.AMIS.API\bin\Debug\net6.0\ClosedXML.dll
+D:\Learning\Misa\api\Misa.Amis.API\MISA.AMIS.API\bin\Debug\net6.0\DocumentFormat.OpenXml.dll
+D:\Learning\Misa\api\Misa.Amis.API\MISA.AMIS.API\bin\Debug\net6.0\ExcelNumberFormat.dll
+D:\Learning\Misa\api\Misa.Amis.API\MISA.AMIS.API\bin\Debug\net6.0\Irony.dll
+D:\Learning\Misa\api\Misa.Amis.API\MISA.AMIS.API\bin\Debug\net6.0\SixLabors.Fonts.dll
+D:\Learning\Misa\api\Misa.Amis.API\MISA.AMIS.API\bin\Debug\net6.0\System.IO.Packaging.dll
+D:\Learning\Misa\api\Misa.Amis.API\MISA.AMIS.API\bin\Debug\net6.0\XLParser.dll

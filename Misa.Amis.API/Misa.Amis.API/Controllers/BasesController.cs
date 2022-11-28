@@ -65,7 +65,7 @@ namespace MISA.AMIS.API.Controllers
         /// <returns>1 bản ghi</returns>
         /// Author: MDLONG(12/11/2022)
         [HttpGet("{recordId}")]
-        public IActionResult GetOneById([FromRoute] Guid recordId)
+        public IActionResult GetOneByID([FromRoute] Guid recordId)
         {
             try
             {
@@ -111,6 +111,18 @@ namespace MISA.AMIS.API.Controllers
         {
             try
             {
+                bool isDupplicated = this._baseBL.CheckDupplicatedCode(entity);
+                if (isDupplicated)
+                {
+                    return StatusCode(StatusCodes.Status200OK, new ErrorResult
+                    {
+                        ErrorCode = ErrorCode.DuplicateCode,
+                        DevMsg = Resource.Dev_Dupplicated_Code,
+                        UserMsg = string.Format(Resource.UserMsg_Dupplicated_Code, ""),
+                        MoreInfo = "",
+                        TraceId = HttpContext.TraceIdentifier
+                    });
+                }
                 Guid result = _baseBL.InsertOne(entity);
                 if (!result.Equals(Guid.Empty))
                     return StatusCode(StatusCodes.Status201Created, result);
@@ -187,7 +199,7 @@ namespace MISA.AMIS.API.Controllers
         /// <returns>Số bản ghi bị xóa</returns>
         /// Author: MDLONG(12/11/2022)
         [HttpDelete("{recordId}")]
-        public IActionResult DeleteOneById([FromRoute] Guid recordId)
+        public IActionResult DeleteOneByID([FromRoute] Guid recordId)
         {
             try
             {
@@ -219,6 +231,41 @@ namespace MISA.AMIS.API.Controllers
                     TraceId = HttpContext.TraceIdentifier
                 });
 
+            }
+        }
+
+        /// <summary>
+        /// Xóa nhiều bản ghi theo id
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        public IActionResult DeleteByIDs([FromBody] List<string> ids)
+        {
+            try
+            {
+                int numberOfRow = _baseBL.DeleteByIDs(ids);
+                if (numberOfRow > 0)
+                {
+                    return StatusCode(StatusCodes.Status200OK, numberOfRow);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status204NoContent);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
+                {
+                    ErrorCode = ErrorCode.Exception,
+                    DevMsg = Resource.DevMsg_Exception,
+                    UserMsg = Resource.UserMsg_Exception,
+                    MoreInfo = "",
+                    TraceId = HttpContext.TraceIdentifier
+                });
             }
         }
     }

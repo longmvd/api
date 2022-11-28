@@ -3,17 +3,18 @@
     /// <summary>
     /// Giới tính
     /// </summary>
+    ///  Created by: MDLONG(10/11/2022)
     public enum Gender
     {
         /// <summary>
         /// Nam
         /// </summary>
-        Male = 0,
+        Male = 1,
 
         /// <summary>
         /// Nữ
         /// </summary>
-        Female = 1,
+        Female = 0,
 
         /// <summary>
         /// Khác

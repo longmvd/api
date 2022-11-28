@@ -10,6 +10,7 @@ namespace MISA.AMIS.Common.Enums
     /// <summary>
     /// Enum sử dụng mô tả các lỗi xảy ra khi gọi API
     /// </summary>
+    /// Created by: MDLONG(30/10/2022)
     public enum ErrorCode
     {
 

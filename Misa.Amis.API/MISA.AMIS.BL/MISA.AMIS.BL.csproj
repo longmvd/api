@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.97.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MISA.AMIS.Common\MISA.AMIS.Common.csproj" />
     <ProjectReference Include="..\MISA.AMIS.DL\MISA.AMIS.DL.csproj" />
   </ItemGroup>

@@ -7,6 +7,7 @@ using MISA.AMIS.DL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -38,8 +39,18 @@ namespace MISA.AMIS.BL
         ///Created by: MDLONG(18/11/2022)
         public PagingResult<EmployeeDTO> GetByFilter(PagingRequest request)
         {
-            request = ValidateRequest(request);
+            ValidateRequest(request);
             return _employeeDL.GetByFilter(request);
+        }
+
+        /// <summary>
+        /// Lấy nhân viên chứa tên phòng ban theo id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public override EmployeeDTO GetByID(Guid id)
+        {
+            return this._employeeDL.GetByID(id);
         }
 
         /// <summary>
@@ -50,7 +61,7 @@ namespace MISA.AMIS.BL
         public XLWorkbook ExportToExcel(PagingRequest request)
         {
             // Lấy danh sách tất cả nhân viên
-            var dataTable = createTable(request);
+            var dataTable = CreateTable(request);
 
             XLWorkbook wb = new XLWorkbook();
 
@@ -77,7 +88,7 @@ namespace MISA.AMIS.BL
 
                 // Căn giữa cho văn bản ở cột D (Ngày sinh)
                 table.Column("D").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-                table.Column("T").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                table.Column("M").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
             }
 
             // Thêm 2 dòng phía trên
@@ -89,9 +100,9 @@ namespace MISA.AMIS.BL
             // Tùy chỉnh style cho ô A1 và A2
             ws.Cells("A1,A2").Style.Font.SetBold(true).Font.SetFontSize(16).Font.SetFontName("Arial").Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
 
-            // Merge từ A1 đến I1, từ A2 đến I2
-            ws.Range("A1:T1").Merge();
-            ws.Range("A2:T2").Merge();
+            // Merge từ A1 đến S1, từ A2 đến S2
+            ws.Range("A1:S1").Merge();
+            ws.Range("A2:S2").Merge();
             return wb;
 
 
@@ -103,7 +114,7 @@ namespace MISA.AMIS.BL
         /// <param name="gender"></param>
         /// <returns>string</returns>
         /// Created by: MDLONG(27/11/2022)
-        private string? getStringGender(Gender gender)
+        private string? GetStringGender(Gender gender)
         {
             switch (gender)
             {
@@ -123,9 +134,11 @@ namespace MISA.AMIS.BL
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        private DataTable createTable(PagingRequest request)
+        private DataTable CreateTable(PagingRequest request)
         {
-            var employees = this.GetByFilter(request).Data;
+            request.PageSize = null;
+            ValidateRequest(request, false);
+            var employees = this._employeeDL.GetByFilter(request).Data;
 
             // using System.Data;
             DataTable dataTable = new()
@@ -146,7 +159,7 @@ namespace MISA.AMIS.BL
 
             foreach (var employee in employees)
             {
-                var columns = new object[20];
+                var columns = new object[19];
                 var props = field.GetType().GetProperties();
 
                 foreach (PropertyInfo prop in props)
@@ -168,7 +181,7 @@ namespace MISA.AMIS.BL
                     }
                     else if (prop.Name.Equals("Gender"))
                     {
-                        columns[column.Order] = getStringGender((Gender)employee.GetType()
+                        columns[column.Order] = GetStringGender((Gender)employee.GetType()
                                                     .GetProperty(prop.Name)
                                                     ?.GetValue(employee, null));
                         //value = gender;
@@ -194,24 +207,26 @@ namespace MISA.AMIS.BL
         /// </summary>
         /// <returns></returns>
         /// Created by: MDLONG(20/11/2022)
-        private PagingRequest ValidateRequest(PagingRequest request)
+        private void ValidateRequest(PagingRequest request, bool validatePage = true)
         {
-            if (request.PageNumber == 0)
+            if (validatePage)
             {
-                request.PageNumber = 1;
-            }
-            if (request.PageSize == 0)
-            {
-                request.PageSize = 10;
+                if (request.PageNumber == null)
+                {
+                    request.PageNumber = 1;
+                }
+                if (request.PageSize == null)
+                {
+                    request.PageSize = 10;
+                }
             }
             if (request.EmployeeFilter == null)
             {
                 request.EmployeeFilter = "";
             }
             request.EmployeeFilter = request.EmployeeFilter.Trim();
-            int offset = (request.PageNumber - 1) * request.PageSize;
+            int? offset = (request.PageNumber - 1) * request.PageSize;
             request.PageNumber = offset; //sql lấy từ vị trí 0
-            return request;
         }
         #endregion
     }

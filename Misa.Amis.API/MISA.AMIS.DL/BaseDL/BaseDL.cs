@@ -52,6 +52,20 @@ namespace MISA.AMIS.DL
         }
 
         /// <summary>
+        /// Lấy ra mã lớn nhất
+        /// </summary>
+        /// <returns></returns>
+        public string GetTheBiggestCode()
+        {
+            string storedProcedure = String.Format(Procedure.GET_THE_BIGGEST_CODE, typeof(T).Name);
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
+            {
+                var result = mySqlConnection.QueryFirstOrDefault<string>(storedProcedure, commandType: CommandType.StoredProcedure);
+                return result;
+            }
+        }
+
+        /// <summary>
         /// Xóa 1 bản ghi theo id
         /// </summary>
         /// <param name="id">ID bản ghi cần xóa</param>
@@ -92,7 +106,7 @@ namespace MISA.AMIS.DL
         /// <param name="ids"></param>
         /// <returns>Số bản ghi bị xóa</returns>
         /// Created by: MDLONG(23/11/2022)
-        public int DeleteByIDs(string ids)
+        public int DeleteByIDs(string ids, int numberOfRecord)
         {
             string storedProcedure = String.Format(Procedure.DELETE_BY_IDS, typeof(T).Name);
             var parameters = new DynamicParameters();
@@ -101,22 +115,26 @@ namespace MISA.AMIS.DL
             using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
                 mySqlConnection.Open();
-                var transaction = mySqlConnection.BeginTransaction();
-                try
+                using(var transaction = mySqlConnection.BeginTransaction())
                 {
-                    int numberOfRow = mySqlConnection.Execute(storedProcedure, parameters, transaction, commandType: CommandType.StoredProcedure);
-                    transaction.Commit();
-                    return numberOfRow ;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    transaction.Rollback();
-                    return 0;
-                }
-                finally
-                {
-                    mySqlConnection.Close();
+                    try
+                    {
+                        int numberOfRow = mySqlConnection.Execute(storedProcedure, parameters, transaction, commandType: CommandType.StoredProcedure);
+                        if (numberOfRow == numberOfRecord)
+                            transaction.Commit();
+                        else
+                        {
+                            numberOfRow = 0;
+                            transaction.Rollback();
+                        }
+                        return numberOfRow ;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        transaction.Rollback();
+                        return 0;
+                    }
                 }
             }
         }
@@ -150,23 +168,21 @@ namespace MISA.AMIS.DL
             using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
                 mySqlConnection.Open();
-                var transaction = mySqlConnection.BeginTransaction();
-                try
+                using (var transaction = mySqlConnection.BeginTransaction())
                 {
-                    int result = mySqlConnection.Execute(storedProcedureName, parameters, transaction, commandType: System.Data.CommandType.StoredProcedure);
-                    transaction.Commit();
-                    return id;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    transaction.Rollback();
-                    return Guid.Empty;
-                }
-                finally
-                {
-                    mySqlConnection.Close();
-                }
+                    try
+                    {
+                        int result = mySqlConnection.Execute(storedProcedureName, parameters, transaction, commandType: System.Data.CommandType.StoredProcedure);
+                        transaction.Commit();
+                        return id;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        transaction.Rollback();
+                        return Guid.Empty;
+                    }
+                } 
             }
         }
 
@@ -219,7 +235,7 @@ namespace MISA.AMIS.DL
         }
 
         /// <summary>
-        /// Kiểm tra mã nhân viên TRÙNG
+        /// Kiểm tra mã TRÙNG
         /// </summary>
         /// <param name="request"></param>
         /// <returns>Kết quả kiểm tra</returns>

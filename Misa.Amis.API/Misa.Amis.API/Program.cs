@@ -1,4 +1,5 @@
-﻿using MISA.AMIS.BL;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using MISA.AMIS.BL;
 using MISA.AMIS.DL;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,19 +12,24 @@ builder.Services.AddControllers();
 //Dependency injection
 builder.Services.AddScoped(typeof(IBaseBL<>), typeof(BaseBL<>));
 builder.Services.AddScoped(typeof(IBaseDL<>), typeof(BaseDL<>));
-builder.Services.AddScoped<IDepartmentBL, DepartmentBL>();
-builder.Services.AddScoped<IDepartmentDL, DepartmentDL>();
 builder.Services.AddScoped<IEmployeeBL, EmployeeBL>();
 builder.Services.AddScoped<IEmployeeDL, EmployeeDL>();
+builder.Services.AddScoped<IDepartmentBL, DepartmentBL>();
+builder.Services.AddScoped<IDepartmentDL, DepartmentDL>();
 
 //Lấy dữ liệu connection string từ appsettings.Development.json 
 DatabaseContext.ConnectionString = builder.Configuration.GetConnectionString("MySql");
 
 
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+
+//Bỏ validate tự động
+builder.Services.AddControllers().ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

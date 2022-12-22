@@ -17,5 +17,7 @@ namespace MISA.AMIS.DL
         /// <returns>Trang danh sách nhân viên</returns>
         ///  Created by: MDLONG(18/11/2022)
         public PagingResult<EmployeeDTO> GetByFilter(PagingRequest request);
+
+        public EmployeeDTO GetByID(Guid id);
     }
 }

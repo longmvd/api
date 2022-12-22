@@ -13,7 +13,9 @@ namespace MISA.AMIS.Common.Enums
     /// Create by: MDLONG(20/11/2022)
     public class EmployeeField
     {
-
+        /// <summary>
+        /// Thứ tự cột
+        /// </summary>
         public Column ColumnOrder { get; } = new Column { Name = "STT", Order = 0};
 
         /// <summary>
@@ -82,34 +84,29 @@ namespace MISA.AMIS.Common.Enums
         public Column IdentityPlace { get; } = new Column {Name = "Nơi cấp", Order = 13};
 
         /// <summary>
-        /// Lương
-        /// </summary>
-        public Column Salary { get; } = new Column {Name = "Tiền lương", Order = 14};
-
-        /// <summary>
         /// Số tài khoản ngân hàng
         /// </summary>
-        public Column BankAccountNumber { get; } = new Column {Name = "Tài khoản ngân hàng", Order = 15};
+        public Column BankAccountNumber { get; } = new Column {Name = "Tài khoản ngân hàng", Order = 14};
 
         /// <summary>
         /// Tên ngân hàng
         /// </summary>
-        public Column BankName { get; } = new Column {Name = "Tên ngân hàng", Order = 16};
+        public Column BankName { get; } = new Column {Name = "Tên ngân hàng", Order = 15};
 
         /// <summary>
         /// Tên chi nhánh
         /// </summary>
-        public Column BankBranchName { get; } = new Column {Name = "Chi nhánh", Order = 17};
+        public Column BankBranchName { get; } = new Column {Name = "Chi nhánh", Order = 16};
 
         /// <summary>
         /// Tên tỉnh/thành phố ngân hàng
         /// </summary>
-        public Column BankProvinceName { get; } = new Column {Name = "Tên tỉnh thành phố chi nhánh", Order = 18};
+        public Column BankProvinceName { get; } = new Column {Name = "Tên tỉnh thành phố chi nhánh", Order = 17};
 
         /// <summary>
         /// Ngày vào công ty
         /// </summary>
-        public Column JoinDate { get; } = new Column {Name = "Ngày tham gia", Order = 19};
+        public Column JoinDate { get; } = new Column {Name = "Ngày tham gia", Order = 18};
 
     }
 }

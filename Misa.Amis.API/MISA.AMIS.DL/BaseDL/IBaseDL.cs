@@ -25,6 +25,12 @@ namespace MISA.AMIS.DL
         public T GetByID(Guid id);
 
         /// <summary>
+        /// Lấy ra mã nhân viên lớn nhất
+        /// </summary>
+        /// <returns></returns>
+        public string GetTheBiggestCode();
+
+        /// <summary>
         /// Thêm 1 bản ghi
         /// </summary>
         /// <returns>Id bản ghi</returns>
@@ -51,7 +57,7 @@ namespace MISA.AMIS.DL
         /// <param name="ids">danh sách id</param>
         /// <returns>trạng thái xóa</returns>
         ///  Created by: MDLONG(11/11/2022)
-        public int DeleteByIDs(string ids);
+        public int DeleteByIDs(string ids, int numberOfRecord);
 
         /// <summary>
         /// Kiểm tra mã trùng
@@ -60,5 +66,7 @@ namespace MISA.AMIS.DL
         /// <returns>bool</returns>
         /// Created by: MDLONG(18/11/2022)
         public bool CheckDupplicatedCode(T entity);
+
+        
     }
 }

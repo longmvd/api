@@ -1,12 +1,18 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using DocumentFormat.OpenXml.Office.CustomUI;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MISA.AMIS.BL;
 using MISA.AMIS.Common;
+using MISA.AMIS.Common.Attributes;
 using MISA.AMIS.Common.DTO;
 using MISA.AMIS.Common.Entities;
 using MISA.AMIS.Common.Enums;
 using MISA.AMIS.DL;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
+using System.Dynamic;
 
 namespace MISA.AMIS.API.Controllers
 {
@@ -101,9 +107,38 @@ namespace MISA.AMIS.API.Controllers
         }
 
         /// <summary>
-        /// API thêm mới phòng ban
+        /// Lấy mã lớn nhất
         /// </summary>
-        /// <param name="base">Thông tin phòng ban cần thêm</param>
+        /// <returns>1 bản ghi</returns>
+        /// Author: MDLONG(12/11/2022)
+        [HttpGet("TheBiggestCode")]
+        public IActionResult GetTheBiggestCode()
+        {
+            try
+            {
+                var code = _baseBL.GetTheBiggestCode();
+                return StatusCode(StatusCodes.Status200OK, code);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
+                {
+                    ErrorCode = ErrorCode.Exception,
+                    DevMsg = Resource.DevMsg_Exception,
+                    UserMsg = Resource.UserMsg_Exception,
+                    MoreInfo = "",
+                    TraceId = HttpContext.TraceIdentifier
+                });
+
+            }
+        }
+
+
+        /// <summary>
+        /// API thêm mới bản ghi
+        /// </summary>
+        /// <param name="entity">Thông tin cần thêm</param>
         /// <returns>ID phòng ban được thêm</returns>
         /// Author: MDLONG(12/11/2022)
         [HttpPost]
@@ -111,30 +146,35 @@ namespace MISA.AMIS.API.Controllers
         {
             try
             {
-                bool isDupplicated = this._baseBL.CheckDupplicatedCode(entity);
-                if (isDupplicated)
+                var response = _baseBL.InsertOne(entity, ModelState);
+                if (response.Success)
                 {
-                    return StatusCode(StatusCodes.Status200OK, new ErrorResult
-                    {
-                        ErrorCode = ErrorCode.DuplicateCode,
-                        DevMsg = Resource.Dev_Dupplicated_Code,
-                        UserMsg = string.Format(Resource.UserMsg_Dupplicated_Code, ""),
-                        MoreInfo = "",
-                        TraceId = HttpContext.TraceIdentifier
-                    });
+                    return StatusCode((int)response.StatusCode, response.Data);
                 }
-                Guid result = _baseBL.InsertOne(entity);
-                if (!result.Equals(Guid.Empty))
-                    return StatusCode(StatusCodes.Status201Created, result);
                 else
-                    return StatusCode(StatusCodes.Status501NotImplemented, new ErrorResult
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
-                        ErrorCode = ErrorCode.Exception,
+                        return StatusCode((int)response.StatusCode, new ErrorResult
+                        {
+                            ErrorCode = ErrorCode.DuplicateCode,
+                            DevMsg = Resource.Dev_Dupplicated_Code,
+                            UserMsg = Resource.UserMsg_Dupplicated_Code,
+                            MoreInfo = response.Data,
+                            TraceId = HttpContext.TraceIdentifier
+                        });
+                    }
+
+                    return StatusCode((int)response.StatusCode, new ErrorResult
+                    {
+                        ErrorCode = ErrorCode.InvalidData,
                         DevMsg = Resource.DevMsg_Exception,
-                        UserMsg = Resource.UserMsg_Exception,
-                        MoreInfo = "",
+                        UserMsg = Resource.UserMsg_Invalid_Data,
+                        MoreInfo = response.Data,
                         TraceId = HttpContext.TraceIdentifier
                     });
+
+                }
             }
             catch (Exception e)
             {
@@ -162,19 +202,21 @@ namespace MISA.AMIS.API.Controllers
         [HttpPut("{recordId}")]
         public IActionResult UpdateBase([FromRoute] Guid recordId, [FromBody] T entity)
         {
+
             try
             {
-                int result = _baseBL.UpdateOneByID(recordId, entity);
-                if (result > 0)
+                var response = _baseBL.UpdateOneByID(recordId, entity, ModelState);
+                if (response.Success)
                 {
-                    return StatusCode(StatusCodes.Status200OK, result);
+                    return StatusCode((int)response.StatusCode, response.Data);
                 }
+
                 return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult
                 {
-                    ErrorCode = ErrorCode.Exception,
-                    DevMsg = "",
-                    UserMsg = "Sửa thất bại",
-                    MoreInfo = "",
+                    ErrorCode = response.ErrorCode,
+                    DevMsg = Resource.UserMsg_Edit_Failed,
+                    UserMsg = Resource.UserMsg_Edit_Failed,
+                    MoreInfo = response.Data,
                     TraceId = HttpContext.TraceIdentifier
                 });
             }
@@ -244,14 +286,21 @@ namespace MISA.AMIS.API.Controllers
         {
             try
             {
-                int numberOfRow = _baseBL.DeleteByIDs(ids);
-                if (numberOfRow > 0)
+                ServiceResponse response = _baseBL.DeleteByIDs(ids);
+                if (response.Success)
                 {
-                    return StatusCode(StatusCodes.Status200OK, numberOfRow);
+                    return StatusCode(StatusCodes.Status200OK, response.Data);
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status204NoContent);
+                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult
+                    {
+                        ErrorCode = ErrorCode.NotFound,
+                        DevMsg = Resource.DevMsg_ID_Not_Exist,
+                        UserMsg = Resource.UserMsg_Delete_Failed,
+                        MoreInfo = response.Data,
+                        TraceId = HttpContext.TraceIdentifier
+                    });
                 }
             }
             catch (Exception ex)

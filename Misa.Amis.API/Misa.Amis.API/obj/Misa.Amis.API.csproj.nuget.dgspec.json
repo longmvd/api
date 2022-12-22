@@ -50,7 +50,7 @@
             },
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[13.0.1, )"
+              "version": "[13.0.2, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -127,9 +127,17 @@
               "target": "Package",
               "version": "[0.97.0, )"
             },
+            "Microsoft.AspNet.WebApi.Core": {
+              "target": "Package",
+              "version": "[5.2.9, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[13.0.1, )"
+              "version": "[13.0.2, )"
             }
           },
           "imports": [
@@ -190,7 +198,7 @@
           "dependencies": {
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[13.0.1, )"
+              "version": "[13.0.2, )"
             }
           },
           "imports": [
@@ -263,7 +271,7 @@
             },
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[13.0.1, )"
+              "version": "[13.0.2, )"
             }
           },
           "imports": [

@@ -22,6 +22,13 @@ namespace MISA.AMIS.BL
         public PagingResult<EmployeeDTO> GetByFilter(PagingRequest request);
 
         /// <summary>
+        /// Lấy nhân viên theo id
+        /// </summary>
+        /// <param name="id">id nhân viên</param>
+        /// <returns></returns>
+        public EmployeeDTO GetByID(Guid id);
+
+        /// <summary>
         /// Xuất khẩu ra excel
         /// </summary>
         /// <returns>Bảng excel</returns>

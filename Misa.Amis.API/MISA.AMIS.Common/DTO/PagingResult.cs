@@ -12,7 +12,7 @@ namespace MISA.AMIS.Common.DTO
         /// <summary>
         /// Tổng số trang
         /// </summary>
-        public int TotalPage { get; set; }
+        public int? TotalPage { get; set; }
 
         /// <summary>
         /// Tổng số bản ghi

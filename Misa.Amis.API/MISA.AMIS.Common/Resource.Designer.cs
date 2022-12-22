@@ -61,7 +61,7 @@ namespace MISA.AMIS.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mã không để trống.
+        ///   Looks up a localized string similar to Mã không để trống..
         /// </summary>
         public static string Code_Empty {
             get {
@@ -70,7 +70,7 @@ namespace MISA.AMIS.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mã {0} đã tồn tại.
+        ///   Looks up a localized string similar to Mã đã tồn tại trong hệ thống..
         /// </summary>
         public static string Dev_Dupplicated_Code {
             get {
@@ -84,6 +84,15 @@ namespace MISA.AMIS.Common {
         public static string DevMsg_Exception {
             get {
                 return ResourceManager.GetString("DevMsg_Exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID bản ghi không tồn tại trong hệ thống..
+        /// </summary>
+        public static string DevMsg_ID_Not_Exist {
+            get {
+                return ResourceManager.GetString("DevMsg_ID_Not_Exist", resourceCulture);
             }
         }
         
@@ -106,7 +115,16 @@ namespace MISA.AMIS.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mã &lt;{0}&gt; đã tồn tại trong hệ thống, vui lòng kiểm tra lại.
+        ///   Looks up a localized string similar to Xóa thất bại..
+        /// </summary>
+        public static string UserMsg_Delete_Failed {
+            get {
+                return ResourceManager.GetString("UserMsg_Delete_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mã &lt;{0}&gt; đã tồn tại trong hệ thống, vui lòng kiểm tra lại..
         /// </summary>
         public static string UserMsg_Dupplicated_Code {
             get {
@@ -115,7 +133,16 @@ namespace MISA.AMIS.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Có lỗi xảy ra vui lòng liên hệ Misa.
+        ///   Looks up a localized string similar to Sửa thất bại..
+        /// </summary>
+        public static string UserMsg_Edit_Failed {
+            get {
+                return ResourceManager.GetString("UserMsg_Edit_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Có lỗi xảy ra, vui lòng liên hệ Misa..
         /// </summary>
         public static string UserMsg_Exception {
             get {
@@ -124,7 +151,16 @@ namespace MISA.AMIS.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Không tìm thấy kết quả.
+        ///   Looks up a localized string similar to Nhập sai trường thông tin..
+        /// </summary>
+        public static string UserMsg_Invalid_Data {
+            get {
+                return ResourceManager.GetString("UserMsg_Invalid_Data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Không tìm thấy kết quả..
         /// </summary>
         public static string UserMsg_Not_Found {
             get {

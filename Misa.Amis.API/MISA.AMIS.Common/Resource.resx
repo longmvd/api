@@ -118,14 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Code_Empty" xml:space="preserve">
-    <value>Mã không để trống</value>
+    <value>Mã không để trống.</value>
   </data>
   <data name="DevMsg_Exception" xml:space="preserve">
     <value>Catched an exception.</value>
     <comment>Message trả về cho dev khi gọi API gặp exception</comment>
   </data>
+  <data name="DevMsg_ID_Not_Exist" xml:space="preserve">
+    <value>ID bản ghi không tồn tại trong hệ thống.</value>
+    <comment>Message trả về cho dev khi id bản ghi không tồn tại</comment>
+  </data>
   <data name="Dev_Dupplicated_Code" xml:space="preserve">
-    <value>Mã {0} đã tồn tại</value>
+    <value>Mã đã tồn tại trong hệ thống.</value>
     <comment>Message trả về cho user khi thêm mới trùng mã</comment>
   </data>
   <data name="Employee_Excel_Title" xml:space="preserve">
@@ -136,16 +140,28 @@
     <value />
     <comment>Thông tin chi tiết của lỗi khi gặp exception</comment>
   </data>
+  <data name="UserMsg_Delete_Failed" xml:space="preserve">
+    <value>Xóa thất bại.</value>
+    <comment>Message trả về cho user khi xóa thất bại</comment>
+  </data>
   <data name="UserMsg_Dupplicated_Code" xml:space="preserve">
-    <value>Mã &lt;{0}&gt; đã tồn tại trong hệ thống, vui lòng kiểm tra lại</value>
+    <value>Mã &lt;{0}&gt; đã tồn tại trong hệ thống, vui lòng kiểm tra lại.</value>
     <comment>Message trả về cho user khi thêm mới trùng mã</comment>
   </data>
+  <data name="UserMsg_Edit_Failed" xml:space="preserve">
+    <value>Sửa thất bại.</value>
+    <comment>Message trả về cho user khi sửa thất bại</comment>
+  </data>
   <data name="UserMsg_Exception" xml:space="preserve">
-    <value>Có lỗi xảy ra vui lòng liên hệ Misa</value>
+    <value>Có lỗi xảy ra, vui lòng liên hệ Misa.</value>
     <comment>Message trả về cho user khi gọi API gặp exception</comment>
   </data>
+  <data name="UserMsg_Invalid_Data" xml:space="preserve">
+    <value>Nhập sai trường thông tin.</value>
+    <comment>Message trả về cho user khi nhập đầu vào không hợp lệ</comment>
+  </data>
   <data name="UserMsg_Not_Found" xml:space="preserve">
-    <value>Không tìm thấy kết quả</value>
+    <value>Không tìm thấy kết quả.</value>
     <comment>Message trả về cho user khi gọi API không tìm thấy tài nguyên</comment>
   </data>
 </root>

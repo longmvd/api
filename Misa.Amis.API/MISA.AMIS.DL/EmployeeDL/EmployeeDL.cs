@@ -36,7 +36,7 @@ namespace MISA.AMIS.DL
                 var result = mySqlConnection.QueryMultiple(storedProcedure, parameter, commandType: CommandType.StoredProcedure);
                 var totalRecord = result.Read<int>().First();
                 var employees = result.Read<EmployeeDTO>().ToList();
-                int totalPage =Convert.ToInt32(Math.Ceiling(totalRecord / (decimal)request.PageSize));
+                int? totalPage = request.PageSize != null ? Convert.ToInt32(Math.Ceiling(totalRecord / (decimal)request.PageSize)) : null;
                 paging.Data = employees;
                 if(employees.ToArray().Length == 0)
                 {
@@ -49,6 +49,24 @@ namespace MISA.AMIS.DL
                     paging.TotalPage = totalPage;
                 }
                 return paging;
+            }
+        }
+
+        /// <summary>
+        /// Lấy nhân viên DTO theo id
+        /// </summary>
+        /// <param name="id">id nhân viên</param>
+        /// <returns>Nhân viên</returns>
+        public EmployeeDTO GetByID(Guid id)
+        {
+            string storedProcedure = String.Format(Procedure.GET_BY_ID, typeof(Employee).Name);
+            var parameters = new DynamicParameters();
+            parameters.Add($"@{typeof(Employee).Name}ID", id);
+
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
+            {
+                var result = mySqlConnection.QueryFirstOrDefault<EmployeeDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                return result;
             }
         }
     }

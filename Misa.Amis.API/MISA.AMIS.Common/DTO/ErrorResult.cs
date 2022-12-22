@@ -31,7 +31,7 @@ namespace MISA.AMIS.Common.DTO
         /// <summary>
         /// Thông tin thêm
         /// </summary>
-        public string MoreInfo { get; set; }
+        public object MoreInfo { get; set; }
 
         /// <summary>
         /// id truy vết lỗi

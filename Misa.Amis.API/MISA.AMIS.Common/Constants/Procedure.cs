@@ -30,6 +30,11 @@ namespace MISA.AMIS.Common.Constants
         public static string GET_BY_FILTER = "Proc_{0}_SelectFilter";
 
         /// <summary>
+        /// Format tên của procedure lấy mã lớn nhất
+        /// </summary>
+        public static string GET_THE_BIGGEST_CODE = "Proc_{0}_SelectTheBiggestCode";
+
+        /// <summary>
         /// Kiểm tra mã trùng
         /// </summary>
         public static string CHECK_DUPPLICATED_CODE = "Proc_{0}_CheckDupplicatedCode";

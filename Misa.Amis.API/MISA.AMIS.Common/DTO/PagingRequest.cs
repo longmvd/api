@@ -12,12 +12,12 @@ namespace MISA.AMIS.Common.DTO
         /// <summary>
         /// Kích thước trang
         /// </summary>
-        public int PageSize { get; set; }
+        public int? PageSize { get; set; }
 
         /// <summary>
         /// Trang số bao nhiêu
         /// </summary>
-        public int PageNumber { get; set; }
+        public int? PageNumber { get; set; }
 
         /// <summary>
         /// Điều kiện lọc

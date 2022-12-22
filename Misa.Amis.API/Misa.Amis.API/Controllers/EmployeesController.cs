@@ -33,11 +33,14 @@ namespace Misa.Amis.API.Controllers
             _employeeBL = employeeBL;
         }
         #endregion
-
+        /// <summary>
+        ///Lấy nhân viên theo điều kiện và phân trang
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>Trang nhân viên</returns>
         [HttpGet("filter")]
         public IActionResult GetByFilter([FromQuery] PagingRequest request)
         {
-
             try
             {
                 return StatusCode(StatusCodes.Status200OK, _employeeBL.GetByFilter(request));
@@ -56,6 +59,12 @@ namespace Misa.Amis.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Xuất khẩu nhân viên ra excel
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>Excel file</returns>
+        /// Created by: MDLONG(26/11/2022)
         [HttpGet("excel")]
         public IActionResult ExportEmployeesToExcel([FromQuery] PagingRequest request)
         {
